@@ -4,7 +4,7 @@
     <joint name="laser_joint" type="fixed">
         <parent link="base_link"/>
         <child link="laser_frame"/>
-        <origin xyz="1.1 0 0.35" rpy="0 0 0"/>
+        <origin xyz="1.25 0 0.35" rpy="0 0.33 0"/>
     </joint>
 
     <link name="laser_frame">
@@ -44,8 +44,8 @@
                 <scan>
                     <horizontal>
                         <samples>360</samples>
-                        <min_angle>-3.14</min_angle>
-                        <max_angle>3.14</max_angle>
+                        <min_angle>-1.17</min_angle>
+                        <max_angle>1.17</max_angle>
                     </horizontal>
                 </scan>
                 <range>

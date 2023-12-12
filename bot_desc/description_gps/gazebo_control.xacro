@@ -31,7 +31,15 @@
 
 
 
-     <gazebo reference="chassis">
+     <gazebo reference="base_link">
+       <material>Gazebo/White</material>
+    </gazebo>
+
+    <gazebo reference="left_leg_link">
+       <material>Gazebo/White</material>
+    </gazebo>
+
+    <gazebo reference="right_leg_link">
        <material>Gazebo/White</material>
     </gazebo>
 
