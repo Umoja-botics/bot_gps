@@ -1,0 +1,139 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!-- This file demonstrates the use of some <gazebo> tags -->
+
+    <!-- To include it add the following line -->
+
+
+
+    <!-- Gazebo is unable to use the same <material> tags that are already in the URDF (that RViz uses). -->
+    <!-- Instead, we need to add gazebo tags for our links that refer to Gazebo materials -->
+
+
+    <gazebo reference="base_link">
+        <material>Gazebo/Red</material>
+    </gazebo>
+
+    <gazebo reference="leg_front_right_link">
+        <material>Gazebo/White</material>
+    </gazebo>
+
+    <gazebo reference="leg_front_left_link">
+        <material>Gazebo/White</material>
+    </gazebo>
+    
+    <gazebo reference="leg_back_left_link">
+        <material>Gazebo/White</material>
+    </gazebo>
+    
+    <gazebo reference="leg_back_right_link">
+        <material>Gazebo/White</material>
+    </gazebo> 
+    
+
+    <gazebo reference="wheel_back_left_link">
+        <material>Gazebo/Black</material>
+    </gazebo>
+
+    <gazebo reference="wheel_back_right_link">
+        <material>Gazebo/Black</material>
+    </gazebo>
+
+    <gazebo reference="wheel_front_right_link">
+        <material>Gazebo/Black</material>
+    </gazebo>
+
+    <gazebo reference="wheel_front_left_link">
+        <material>Gazebo/Black</material>
+    </gazebo>
+
+  <!-- Gazebo requires the use of plugins to interact with other systems such as ROS. -->
+
+
+    <!-- This plugin will publish the joint_states for the selected joints 
+            (which robot_state_publisher can then use to broadcast the approprate tf). -->
+    <gazebo>
+        <plugin name="gazebo_ros_joint_state_publisher"
+            filename="libgazebo_ros_joint_state_publisher.so">
+            <update_rate>20</update_rate>
+            <joint_name>leg_front_left_joint</joint_name>
+            <joint_name>leg_front_right_joint</joint_name>
+            <joint_name>leg_back_left_joint</joint_name>
+            <joint_name>leg_back_right_joint</joint_name>
+            <joint_name>wheel_back_left_joint</joint_name>
+            <joint_name>wheel_front_left_joint</joint_name>
+            <joint_name>wheel_back_right_joint</joint_name>
+            <joint_name>wheel_front_right_joint</joint_name>
+        </plugin>
+    </gazebo> 
+
+
+    <!-- This plugin will read a JointTrajectory message from the /set_joint_trajectory topic 
+            and move the machine accordingly. It's a bit clunky but it works. -->
+    <!-- You'll probably want to add damping to the joints to stop them it flopping around. 
+            e.g. <dynamics damping="10.0" friction="10.0"/> -->
+    <!-- Here's an example message to publish to test it:
+            ros2 topic pub -1 /set_joint_trajectory trajectory_msgs/msg/JointTrajectory  '{header: {frame_id: world}, joint_names: [slider_joint, arm_joint], points: [  {positions: {0.8,0.6}} ]}' -->
+     <gazebo>
+        <plugin name="gazebo_ros_joint_pose_trajectory"
+            filename="libgazebo_ros_joint_pose_trajectory.so">
+            <update_rate>2</update_rate>
+        </plugin>
+    </gazebo>
+
+
+        <gazebo>
+        <plugin name="diff_drive"
+            filename="libgazebo_ros_diff_drive.so">
+            <update_rate>20</update_rate>
+ 
+        
+           <left_joint>wheel_front_left_joint</left_joint>
+           <right_joint>wheel_front_right_joint</right_joint>
+ 
+            <wheel_separation>1</wheel_separation>
+            <wheel_diameter>0.4</wheel_diameter>
+
+
+            
+            <max_wheel_torque>20</max_wheel_torque>
+            <max_wheel_acceleration>10.0</max_wheel_acceleration>
+
+
+            
+            <odometry_frame>odom</odometry_frame>
+            <robot_base_frame>base_footprint</robot_base_frame>
+            <commandTopic>cmd_vel</commandTopic>
+
+            <publish_odom>true</publish_odom>
+            <publish_odom_tf>true</publish_odom_tf>
+            <publish_wheel_tf>true</publish_wheel_tf>
+            
+        </plugin>
+    </gazebo> 
+    <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>/my_robot</robotNamespace>
+      <legacyModeNS>true</legacyModeNS>
+      <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+      <alwaysOn>false</alwaysOn>
+    </plugin>
+  </gazebo>
+
+    <gazebo>
+     <plugin name="p3d_base_controller" filename="libgazebo_ros_p3d.so">
+        <alwaysOn>true</alwaysOn>
+        <updateRate>20.0</updateRate>
+        <bodyName>base_link</bodyName>
+        <topicName>pose</topicName>
+        <gaussianNoise>0.01</gaussianNoise>
+        <frameName>world</frameName>
+        <xyzOffsets>0 0 0</xyzOffsets>
+        <rpyOffsets>0 0 0</rpyOffsets>
+    </plugin>
+  </gazebo>
+    
+
+</robot> 
+

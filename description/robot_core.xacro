@@ -1,0 +1,320 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro"  name="robot">
+
+
+<!--xacro:include filename="inertial_file.xacro" /-->
+
+<xacro:property name ="chassis_length" value="1.8"/>
+<xacro:property name ="chassis_width" value="1"/>
+<xacro:property name ="chassis_height" value="0.3"/>
+<xacro:property name ="chassis_mass" value="200"/>
+
+<xacro:property name="wheel_radius" value="0.3" />
+<xacro:property name="wheel_thickness" value="0.1" />
+<xacro:property name="wheel_mass" value="3" />
+
+<xacro:property name="wheel_offset_x" value="1.0"/>
+<xacro:property name="wheel_offset_y" value="0.5"/>
+<xacro:property name="wheel_offset_z" value="0.01"/>
+
+<xacro:property name="leg_length" value="0.13" />
+<xacro:property name="leg_width" value="0.13"/>
+<xacro:property name="leg_height" value="0.8"/>
+<xacro:property name="leg_mass" value="10"/>
+
+<xacro:property name="leg_offset_x" value="1.0"/>
+<xacro:property name="leg_offset_y" value="0.5"/>
+<xacro:property name="leg_offset_z" value="0.1"/>
+
+
+<material name="white">
+    <color rgba="1 1 1 1"/>
+</material>
+
+<material name="yellow">
+    <color rgba="0 1 1 1"/>
+</material>
+
+<material name="blue">
+    <color rgba="0 0 1 1"/>
+</material>
+
+<material name="red">
+    <color rgba="1 0 0 1"/>
+</material>
+
+<!--World-->
+
+<link name="base_footprint"/>
+
+<!-- Base Link-->
+
+<joint name="base_joint" type="fixed">
+    <origin xyz="0 0 1.0" rpy="0 0 0"/>
+    <parent link="base_footprint"/>
+    <child link="base_link"/>        
+</joint>
+
+<!-- Base properties -->
+<link name="base_link">
+    <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+            <box size="${chassis_length} ${chassis_width} ${chassis_height}" />
+        </geometry>
+        <material name="red"/>
+    </visual>
+    <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+            <box size="${chassis_length} ${chassis_width} ${chassis_height}" />
+        </geometry>
+    </collision>
+    <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="50" />
+        <inertia ixx="4.54" ixy="0.0" ixz="0.0" iyy="13.88" iyz="0.0" izz="17.66" />
+    </inertial>
+</link>
+
+<!-- Leg front right-->
+<joint name="leg_front_right_joint" type="fixed">
+    <origin xyz="0.6 -0.45 -0.5" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="leg_front_right_link"/>  
+    <axis xyz="0 0 1"/>      
+</joint>
+
+<link name="leg_front_right_link">
+    <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+            <box size="${leg_length} ${leg_width} ${leg_height}"/>
+        </geometry>
+        <material name="blue" />
+    </visual>
+    <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+            <box size="${leg_length} ${leg_width} ${leg_height}"/>
+        </geometry>
+    </collision>
+    <inertial>
+        <origin xyz="0 0 0.4" rpy="0 0 0"/>
+        <mass value="10" />
+        <inertia ixx="0.547" ixy="0.0" ixz="0.0" iyy="0.547" iyz="0.0" izz="0.028" />
+    </inertial>
+</link>
+
+<!-- Wheel front right-->
+<joint name="wheel_front_right_joint" type="continuous">
+    <origin xyz="0.0 0.0 -0.3" rpy="-${pi/2} 0.0 0.0"/>
+    <parent link="leg_front_right_link"/>
+    <child link="wheel_front_right_link"/>
+    <axis xyz="0 0 1"/> <!-- Axe de rotation (dans cet exemple, axe Y) -->          
+</joint>
+
+   
+<link name="wheel_front_right_link">
+    <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+            <cylinder length="0.15" radius="0.2" />
+        </geometry>
+        <material name="blue" />
+    </visual>
+    <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+            <cylinder length="0.15" radius="0.2" />
+        </geometry>
+    </collision>
+    <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="3" />
+        <inertia ixx="0.035" ixy="0.0" ixz="0.0" iyy="0.035" iyz="0.0" izz="0.06" />
+    </inertial>
+</link>
+
+<!-- Leg front left-->
+<joint name="leg_front_left_joint" type="fixed">
+    <origin xyz="0.6 0.45 -0.5" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="leg_front_left_link"/>     
+    <axis xyz="0 0 1"/>
+</joint>
+
+<link name="leg_front_left_link">
+    <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+            <box size="${leg_length} ${leg_width} ${leg_height}"/>
+        </geometry>
+        <material name="blue" />
+    </visual>
+    <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+            <box size="${leg_length} ${leg_width} ${leg_height}"/>
+        </geometry>
+    </collision>
+    <inertial>
+        <origin xyz="0 0 0.4" rpy="0 0 0"/>
+        <mass value="10" />
+         <inertia ixx="0.547" ixy="0.0" ixz="0.0" iyy="0.547" iyz="0.0" izz="0.028" />
+    </inertial>
+</link>
+
+<!--Leg front left-->
+<joint name="wheel_front_left_joint" type="continuous">
+    <origin xyz="0.0 0.0 -0.3" rpy="-${pi/2} 0.0 0.0"/>
+    <parent link="leg_front_left_link"/>
+    <child link="wheel_front_left_link"/>
+    <axis xyz="0 0 1"/> <!-- Axe de rotation (dans cet exemple, axe Z) -->          
+</joint>
+
+   
+<link name="wheel_front_left_link">
+    <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+            <cylinder length="0.15" radius="0.2" />
+        </geometry>
+        <material name="yellow" />
+    </visual>
+    <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+            <cylinder length="0.15" radius="0.2" />
+        </geometry>
+    </collision>
+    <inertial>
+       <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="3" />
+        <inertia ixx="0.035" ixy="0.0" ixz="0.0" iyy="0.035" iyz="0.0" izz="0.06" />
+    </inertial>
+</link>
+
+<!--Leg back left -->
+
+<joint name="leg_back_left_joint" type="fixed">
+    <origin xyz="-0.6 -0.45 -0.5" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="leg_back_left_link"/>   
+    <axis xyz="0 0 1"/>   
+</joint>
+
+<link name="leg_back_left_link">
+    <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+            <box size="${leg_length} ${leg_width} ${leg_height}"/>
+        </geometry>
+        <material name="blue" />
+    </visual>
+    <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+            <box size="${leg_length} ${leg_width} ${leg_height}"/>
+        </geometry>
+    </collision>
+    <inertial>
+        <origin xyz="0 0 0.4" rpy="0 0 0"/>
+        <mass value="10" />
+         <inertia ixx="0.547" ixy="0.0" ixz="0.0" iyy="0.547" iyz="0.0" izz="0.028" />
+    </inertial>
+</link>
+<!--wheel back left-->
+<!--Leg front left-->
+<joint name="wheel_back_left_joint" type="continuous">
+    <origin xyz="0.0 0.0 -0.3" rpy="-${pi/2} 0.0 0.0"/>
+    <parent link="leg_back_left_link"/>
+    <child link="wheel_back_left_link"/>
+    <axis xyz="0 0 1"/> <!-- Axe de rotation (dans cet exemple, axe Z) -->          
+</joint>
+
+   
+<link name="wheel_back_left_link">
+    <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+            <cylinder length="0.15" radius="0.2" />
+        </geometry>
+        <material name="yellow" />
+    </visual>
+    <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+            <cylinder length="0.15" radius="0.2" />
+        </geometry>
+    </collision>
+    <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="3" />
+        <inertia ixx="0.035" ixy="0.0" ixz="0.0" iyy="0.035" iyz="0.0" izz="0.06" />
+    </inertial>
+</link>
+
+
+
+
+<!--Leg back right -->
+
+<joint name="leg_back_right_joint" type="fixed">
+    <origin xyz="-0.6 0.45 -0.5" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="leg_back_right_link"/>  
+    <axis xyz="0 0 1"/>    
+</joint>
+
+<link name="leg_back_right_link">
+    <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+            <box size="${leg_length} ${leg_width} ${leg_height}"/>
+        </geometry>
+        <material name="blue" />
+    </visual>
+    <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+           <box size="${leg_length} ${leg_width} ${leg_height}"/>
+        </geometry>
+    </collision>
+    <inertial>
+        <origin xyz="0 0 0.4" rpy="0 0 0"/>
+        <mass value="10" />
+        <inertia ixx="0.547" ixy="0.0" ixz="0.0" iyy="0.547" iyz="0.0" izz="0.028" />
+    </inertial>
+</link>
+
+<!--wheel back right-->
+<joint name="wheel_back_right_joint" type="continuous">
+   <origin xyz="0.0 0.0 -0.3" rpy="-${pi/2} 0.0 0.0"/>
+    <parent link="leg_back_right_link"/>
+    <child link="wheel_back_right_link"/>
+    <axis xyz="0 0 1"/> <!-- Axe de rotation (dans cet exemple, axe Z) -->          
+</joint>
+
+   
+<link name="wheel_back_right_link">
+    <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+            <cylinder length="0.15" radius="0.2" />
+        </geometry>
+        <material name="blue" />
+    </visual>
+    <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+            <cylinder length="0.15" radius="0.2" />
+        </geometry>
+    </collision>
+    <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="3" />
+        <inertia ixx="0.035" ixy="0.0" ixz="0.0" iyy="0.035" iyz="0.0" izz="0.06" />
+    </inertial>
+</link>
+</robot>
