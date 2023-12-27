@@ -10,6 +10,7 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
+
 # uncomment the following section in order to fill in
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
@@ -19,6 +20,21 @@ install(
   DESTINATION share/${PROJECT_NAME}
 
 )
+
+
+add_executable(cmd_vel src/cmd_vel.cpp)  
+ament_target_dependencies(cmd_vel
+  rclcpp
+  geometry_msgs
+  std_msgs
+  # Ajoutez ici d'autres dépendances si nécessaire
+)
+
+install(TARGETS
+  cmd_vel
+  DESTINATION lib/${PROJECT_NAME}
+)
+
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   # the following line skips the linter which checks for copyrights

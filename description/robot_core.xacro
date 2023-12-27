@@ -78,8 +78,9 @@
 </link>
 
 <!-- Leg front right-->
-<joint name="leg_front_right_joint" type="fixed">
+<joint name="leg_front_right_joint" type="revolute">
     <origin xyz="0.6 -0.45 -0.5" rpy="0 0 0"/>
+    <limit lower="-0.78" upper="0.78" effort="10" velocity="0.5"/>
     <parent link="base_link"/>
     <child link="leg_front_right_link"/>  
     <axis xyz="0 0 1"/>      
@@ -137,7 +138,8 @@
 </link>
 
 <!-- Leg front left-->
-<joint name="leg_front_left_joint" type="fixed">
+<joint name="leg_front_left_joint" type="revolute">
+    <limit lower="-0.78" upper="0.78" effort="10" velocity="0.5"/>
     <origin xyz="0.6 0.45 -0.5" rpy="0 0 0"/>
     <parent link="base_link"/>
     <child link="leg_front_left_link"/>     
