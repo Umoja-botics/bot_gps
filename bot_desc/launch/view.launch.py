@@ -26,15 +26,16 @@ def generate_launch_description():
 
     # Process the URDF file
     pkg_path = os.path.join(get_package_share_directory('bot_desc'))
-    xacro_file = os.path.join(pkg_path,'description_gps','robot.urdf.xacro')
+    xacro_file = os.path.join(pkg_path,'description_gps_n','robot.urdf.xacro')
 
     robot_description_config = Command(['xacro ', xacro_file])
 
 
     default_rviz_config_path = os.path.join(get_package_share_directory(package_name), 'config', 'bot1.rviz')
+    robot_localization_file_path = os.path.join(get_package_share_directory('bot_desc'), 'config' , 'ekf_with_gps.yaml')
 
 
-    world_path = os.path.join(get_package_share_directory('bot_desc'), 'worlds' , 'tree.sdf')
+    world_path = os.path.join(get_package_share_directory('bot_desc'), 'worlds' , 'vinebo.sdf')
     
     # Create a robot_state_publisher node
     params = {'robot_description': robot_description_config, 'use_sim_time': use_sim_time}
@@ -62,6 +63,66 @@ def generate_launch_description():
         arguments=['-entity', 'rover', '-topic', 'robot_description'],
         output='screen'
     )
+
+    position_drive_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["position_controller"],
+    )
+
+    vel_drive_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["velocity_controller"],
+    )
+
+    joint_broad_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["joint_state_broadcaster"],
+    )
+
+    steering_controller = Node(
+        package="bot_desc",
+        executable="cmd_vel",
+        
+    )
+
+    # Start the navsat transform node which converts GPS data into the world coordinate frame
+    start_navsat_transform_cmd = Node(
+        package='robot_localization',
+        executable='navsat_transform_node',
+        name='navsat_transform',
+        output='screen',
+        parameters=[robot_localization_file_path, 
+        {'use_sim_time': use_sim_time}],
+        remappings=[('imu', 'imu'),
+                    ('gps/fix', 'gps/fix'), 
+                    ('gps/filtered', 'gps/filtered'),
+                    ('odometry/gps', 'odometry/gps'),
+                    ('odometry/filtered', 'odometry/global')])
+
+  # Start robot localization using an Extended Kalman filter...map->odom transform
+    start_robot_localization_global_cmd = Node(
+        package='robot_localization',
+        executable='ekf_node',
+        name='ekf_filter_node_map',
+        output='screen',
+        parameters=[robot_localization_file_path, 
+        {'use_sim_time': use_sim_time}],
+        remappings=[('odometry/filtered', 'odometry/global'),
+                    ('/set_pose', '/initialpose')])
+
+  # Start robot localization using an Extended Kalman filter...odom->base_footprint transform
+    start_robot_localization_local_cmd = Node(
+        package='robot_localization',
+        executable='ekf_node',
+        name='ekf_filter_node_odom',
+        output='screen',
+        parameters=[robot_localization_file_path, 
+        {'use_sim_time': use_sim_time}],
+        remappings=[('odometry/filtered', 'odometry/local'),
+                    ('/set_pose', '/initialpose')])
 
     rviz_node = Node(
         package='rviz2',
@@ -92,5 +153,12 @@ def generate_launch_description():
         node_robot_state_publisher,
         joint_state_publisher_node,
         spawn_entity,
+        position_drive_spawner,
+        vel_drive_spawner,
+        start_robot_localization_local_cmd,
+        start_robot_localization_global_cmd,
+        start_navsat_transform_cmd,
+        joint_broad_spawner,
+        steering_controller
         #rviz_node
     ])

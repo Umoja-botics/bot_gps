@@ -1,0 +1,42 @@
+{
+    "python.autoComplete.extraPaths": [
+        "/home/klein/web_ws/install/nav2_gps_waypoint_follower_demo/lib/python3.10/site-packages",
+        "/home/klein/web_ws/install/swri_transform_util/local/lib/python3.10/dist-packages",
+        "/home/klein/web_ws/install/swri_roscpp/local/lib/python3.10/dist-packages",
+        "/home/klein/web_ws/install/swri_cli_tools/lib/python3.10/site-packages",
+        "/home/klein/web_ws/install/ros2web_examples_py/lib/python3.10/site-packages",
+        "/home/klein/web_ws/install/ros2web_example_py/lib/python3.10/site-packages",
+        "/home/klein/web_ws/install/ros2web_example_app/lib/python3.10/site-packages",
+        "/home/klein/web_ws/install/ros2web_app/lib/python3.10/site-packages",
+        "/home/klein/web_ws/install/ros2web/lib/python3.10/site-packages",
+        "/home/klein/web_ws/install/ros2web_interfaces/local/lib/python3.10/dist-packages",
+        "/home/klein/web_ws/install/ros2web_example_button/lib/python3.10/site-packages",
+        "/home/klein/web_ws/install/ros2_cmd_api/lib/python3.10/site-packages",
+        "/home/klein/web_ws/install/nav2_sms_behavior/local/lib/python3.10/dist-packages",
+        "/home/klein/web_ws/install/nav2_simple_commander/lib/python3.10/site-packages",
+        "/home/klein/web_ws/install/my_bot/local/lib/python3.10/dist-packages",
+        "/home/klein/web_ws/install/mapviz_interfaces/local/lib/python3.10/dist-packages",
+        "/opt/ros/humble/lib/python3.10/site-packages",
+        "/opt/ros/humble/local/lib/python3.10/dist-packages"
+    ],
+    "python.analysis.extraPaths": [
+        "/home/klein/web_ws/install/nav2_gps_waypoint_follower_demo/lib/python3.10/site-packages",
+        "/home/klein/web_ws/install/swri_transform_util/local/lib/python3.10/dist-packages",
+        "/home/klein/web_ws/install/swri_roscpp/local/lib/python3.10/dist-packages",
+        "/home/klein/web_ws/install/swri_cli_tools/lib/python3.10/site-packages",
+        "/home/klein/web_ws/install/ros2web_examples_py/lib/python3.10/site-packages",
+        "/home/klein/web_ws/install/ros2web_example_py/lib/python3.10/site-packages",
+        "/home/klein/web_ws/install/ros2web_example_app/lib/python3.10/site-packages",
+        "/home/klein/web_ws/install/ros2web_app/lib/python3.10/site-packages",
+        "/home/klein/web_ws/install/ros2web/lib/python3.10/site-packages",
+        "/home/klein/web_ws/install/ros2web_interfaces/local/lib/python3.10/dist-packages",
+        "/home/klein/web_ws/install/ros2web_example_button/lib/python3.10/site-packages",
+        "/home/klein/web_ws/install/ros2_cmd_api/lib/python3.10/site-packages",
+        "/home/klein/web_ws/install/nav2_sms_behavior/local/lib/python3.10/dist-packages",
+        "/home/klein/web_ws/install/nav2_simple_commander/lib/python3.10/site-packages",
+        "/home/klein/web_ws/install/my_bot/local/lib/python3.10/dist-packages",
+        "/home/klein/web_ws/install/mapviz_interfaces/local/lib/python3.10/dist-packages",
+        "/opt/ros/humble/lib/python3.10/site-packages",
+        "/opt/ros/humble/local/lib/python3.10/dist-packages"
+    ]
+}

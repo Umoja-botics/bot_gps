@@ -7,7 +7,9 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
+find_package(ament_cmake_python REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(rclpy REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 # uncomment the following section in order to fill in
@@ -15,8 +17,34 @@ find_package(geometry_msgs REQUIRED)
 # find_package(<dependency> REQUIRED)
 
 install(
-  DIRECTORY  launch worlds description_gps  
+  DIRECTORY  launch worlds description_gps description_gps_n config script #srv
   DESTINATION share/${PROJECT_NAME}
+)
+
+# find_package(rosidl_default_generators REQUIRED)
+# rosidl_generate_interfaces(${PROJECT_NAME}
+#   "srv/Gpstomap.srv"
+#   DEPENDENCIES geometry_msgs 
+# )
+
+add_executable(cmd_vel src/cmd_vel.cpp)
+ament_target_dependencies(cmd_vel rclcpp std_msgs geometry_msgs)
+
+install(TARGETS
+cmd_vel
+  DESTINATION lib/${PROJECT_NAME})
+
+# Install Python modules
+ament_python_install_package(${PROJECT_NAME})
+# Install Python executables
+install(PROGRAMS
+  script/gps_waypoint_logger.py
+  script/teleop_node.py
+  #script/conversion.py
+  script/gps_to_cartesian_node.py
+  #script/server_conv.py
+  #script/client_conv.py
+  DESTINATION lib/${PROJECT_NAME}
 )
 
 if(BUILD_TESTING)

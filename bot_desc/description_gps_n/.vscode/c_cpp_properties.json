@@ -1,0 +1,57 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${default}",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/home/klein/web_ws/install/tile_map/include/**",
+        "/home/klein/web_ws/install/mapviz_plugins/include/**",
+        "/home/klein/web_ws/install/swri_route_util/include/**",
+        "/home/klein/web_ws/install/multires_image/include/**",
+        "/home/klein/web_ws/install/mapviz/include/**",
+        "/home/klein/web_ws/install/swri_transform_util/include/**",
+        "/home/klein/web_ws/install/swri_system_util/include/**",
+        "/home/klein/web_ws/install/swri_serial_util/include/**",
+        "/home/klein/web_ws/install/swri_image_util/include/**",
+        "/home/klein/web_ws/install/swri_roscpp/include/**",
+        "/home/klein/web_ws/install/swri_opencv_util/include/**",
+        "/home/klein/web_ws/install/swri_math_util/include/**",
+        "/home/klein/web_ws/install/swri_geometry_util/include/**",
+        "/home/klein/web_ws/install/swri_dbw_interface/include/**",
+        "/home/klein/web_ws/install/swri_console_util/include/**",
+        "/home/klein/web_ws/install/ros2web_interfaces/include/**",
+        "/home/klein/web_ws/install/nav2_straightline_planner/include/**",
+        "/home/klein/web_ws/install/nav2_sms_behavior/include/**",
+        "/home/klein/web_ws/install/mapviz_interfaces/include/**",
+        "/opt/ros/humble/include/**",
+        "/home/klein/web_ws/src/mapviz/mapviz/include/**",
+        "/home/klein/web_ws/src/mapviz/mapviz_plugins/include/**",
+        "/home/klein/web_ws/src/mapviz/multires_image/include/**",
+        "/home/klein/web_ws/src/mapviz/tile_map/include/**",
+        "/home/klein/web_ws/src/marti_common/swri_console_util/include/**",
+        "/home/klein/web_ws/src/marti_common/swri_dbw_interface/include/**",
+        "/home/klein/web_ws/src/marti_common/swri_geometry_util/include/**",
+        "/home/klein/web_ws/src/marti_common/swri_image_util/include/**",
+        "/home/klein/web_ws/src/marti_common/swri_math_util/include/**",
+        "/home/klein/web_ws/src/marti_common/swri_opencv_util/include/**",
+        "/home/klein/web_ws/src/marti_common/swri_roscpp/include/**",
+        "/home/klein/web_ws/src/marti_common/swri_route_util/include/**",
+        "/home/klein/web_ws/src/marti_common/swri_serial_util/include/**",
+        "/home/klein/web_ws/src/marti_common/swri_system_util/include/**",
+        "/home/klein/web_ws/src/marti_common/swri_transform_util/include/**",
+        "/home/klein/web_ws/src/navigation2_tutorials/nav2_gradient_costmap_plugin/include/**",
+        "/home/klein/web_ws/src/navigation2_tutorials/nav2_sms_behavior/include/**",
+        "/home/klein/web_ws/src/navigation2_tutorials/nav2_straightline_planner/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++14"
+    }
+  ],
+  "version": 4
+}
